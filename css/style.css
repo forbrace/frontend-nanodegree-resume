@@ -169,8 +169,8 @@ a {
   display: -webkit-flex;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-justify-content: space-around;
   justify-content: space-around;
   padding: 10px;
