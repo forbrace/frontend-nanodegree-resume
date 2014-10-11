@@ -13,7 +13,7 @@ These are HTML strings. As part of the course, you'll be using JavaScript functi
 replace the %data% placeholder text you see in them.
 */
 var HTMLheaderName = "<h1 id='name'>%data%</h1>";
-var HTMLheaderRole = "<span>%data%</span><hr/>";
+var HTMLheaderRole = "<span class='role'>%data%</span><hr/>";
 
 var HTMLcontactGeneric = "<li class='flex-item'><span class='orange-text'>%contact%</span><span class='white-text'>%data%</span></li>";
 var HTMLmobile = "<li class='flex-item'><span class='orange-text'>mobile</span><span class='white-text'>%data%</span></li>";
@@ -34,12 +34,12 @@ var HTMLworkEmployer = "<a href='#'>%data%";
 var HTMLworkTitle = " - %data%</a>";
 var HTMLworkDates = "<div class='date-text'>%data%</div>";
 var HTMLworkLocation = "<div class='location-text'>%data%</div>";
-var HTMLworkDescription = "<p><br>%data%</p>";
+var HTMLworkDescription = "<p>%data%</p>";
 
 var HTMLprojectStart = "<div class='project-entry'></div>";
 var HTMLprojectTitle = "<a href='#'>%data%</a>";
 var HTMLprojectDates = "<div class='date-text'>%data%</div>";
-var HTMLprojectDescription = "<p><br>%data%</p>";
+var HTMLprojectDescription = "<p>%data%</p>";
 var HTMLprojectImage = "<img src='%data%'>";
 
 var HTMLschoolStart = "<div class='education-entry'></div>";
@@ -47,13 +47,13 @@ var HTMLschoolName = "<a href='#'>%data%";
 var HTMLschoolDegree = " -- %data%</a>";
 var HTMLschoolDates = "<div class='date-text'>%data%</div>";
 var HTMLschoolLocation = "<div class='location-text'>%data%</div>";
-var HTMLschoolMajor = "<em><br>Major: %data%</em>"
+var HTMLschoolMajor = "<em class='clear'>Major : %data%</em>"
 
 var HTMLonlineClasses = "<h3>Online Classes</h3>";
 var HTMLonlineTitle = "<a href='#'>%data%";
 var HTMLonlineSchool = " - %data%</a>";
 var HTMLonlineDates = "<div class='date-text'>%data%</div>";
-var HTMLonlineURL = "<br><a href='#'>%data%</a>";
+var HTMLonlineURL = "<div class='clear'><a href='#'>%data%</a></div>";
 
 var internationalizeButton = "<button>Internationalize</button>";
 var googleMap = "<div id='map'></div>";
@@ -88,6 +88,7 @@ function logClicks(x,y) {
 
 $(document).click(function(loc) {
   // your code goes here!
+  logClicks(loc.pageX, loc.pageY);
 });
 
 
@@ -105,7 +106,8 @@ Start here! initializeMap() is called when page is loaded.
 */
 function initializeMap() {
 
-  var locations;        
+  var locations,
+      infoWindows = [];        
 
   var mapOptions = {
     disableDefaultUI: true
@@ -126,28 +128,35 @@ function initializeMap() {
     var locations = [];
 
     // adds the single location property from bio to the locations array
-    locations.push(bio.contacts.location);
+    if (bio.contacts && bio.contacts.location) {
+      locations.push(bio.contacts.location);
+    }
     
     // iterates through school locations and appends each location to
     // the locations array
     for (var school in education.schools) {
-      locations.push(education.schools[school].location);
+      if (education.schools[school].location) {
+        locations.push(education.schools[school].location);
+      }
     }
 
     // iterates through work locations and appends each location to
     // the locations array
     for (var job in work.jobs) {
-      locations.push(work.jobs[job].location);
+      if (work.jobs[job].location) {
+        locations.push(work.jobs[job].location);
+      }
     }
 
     return locations;
   }
-
+  
   /*
   createMapMarker(placeData) reads Google Places search results to create map pins.
   placeData is the object returned from search results containing information
   about a single location.
   */
+  
   function createMapMarker(placeData) {
 
     // The next lines save location data from the search result object to local variables
@@ -167,13 +176,17 @@ function initializeMap() {
     // or hover over a pin on a map. They usually contain more information
     // about a location.
     var infoWindow = new google.maps.InfoWindow({
-      content: name
+      content: '<div class="gmapName">'+name+'</div>'
     });
-
+    
     // hmmmm, I wonder what this is about...
-    google.maps.event.addListener(marker, 'click', function() {
+    google.maps.event.addListener(marker, 'click', function(e) {
       // your code goes here!
+      closeAllInfoWindows();
+      infoWindows.push(infoWindow);
+      infoWindow.open(map, marker);
     });
+    
 
     // this is where the pin actually gets added to the map.
     // bounds.extend() takes in a map location object
@@ -182,6 +195,15 @@ function initializeMap() {
     map.fitBounds(bounds);
     // center the map
     map.setCenter(bounds.getCenter());
+  }
+  
+  /*
+  close infoWindows
+  */
+  function closeAllInfoWindows() {
+    for (var i = 0, l = infoWindows.length; i < l; i++) {
+      infoWindows[i].close();
+    }
   }
 
   /*
@@ -235,7 +257,7 @@ Uncomment all the code below when you're ready to implement a Google Map!
 */
 
 // Calls the initializeMap() function when the page loads
-//window.addEventListener('load', initializeMap);
+window.addEventListener('load', initializeMap);
 
 // Vanilla JS way to listen for resizing of the window 
 // and adjust map bounds

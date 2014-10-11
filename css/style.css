@@ -1,16 +1,16 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic,500,500italic);
+body {
+  background:#484848;
+}
 *{
     padding:0;
     margin:0;
     font-family: 'Roboto', sans-serif;
 }
 
-
-
 .education-entry, .work-entry, .project-entry {
-  padding-left: 5%;
-  padding-right: 5%;
+  margin:0 0 10px 0;
 }
-
 
 h1 {
 
@@ -43,9 +43,8 @@ h4 {
 }
 
 h2, h3, h4, h5 {
-  padding:10px;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding:20px 0;
+  margin:0;
 }
 
 
@@ -63,20 +62,31 @@ h2, h3, h4, h5 {
   color: #999999;
   line-height: 16px;
   float: right;
-
 }
 
 p {
   font-size: 14px;
   color: #333333;
   line-height: 21px;
+  margin:.5em 0;
+  clear:both;
 }
 
 a {
   color: #1199C3;
   text-decoration: none;
-  margin-top: 10px;
-  display: block;
+}
+
+.inside {
+  max-width:940px;
+  margin:0 auto;
+  padding:20px 5%;
+}
+#header .inside {
+  padding:5%;
+}
+#letsConnect .inside {
+  padding:0 5%;
 }
 
 .welcome-message {
@@ -89,6 +99,7 @@ a {
 #skillsH3 {
   color: #F5AE23;
   display: none;
+  padding:10px 0 0 0;
 }
 
 #skills {
@@ -97,6 +108,7 @@ a {
 
 .orange {
   background-color: #F5AE23;
+  color:#fff;
 }
 
 .orange-text {
@@ -113,6 +125,9 @@ a {
   padding-bottom: 10px;
   clear:both;
 }
+.white {
+  background-color: #fff;
+}
 
 .dark-gray {
   background-color: #4A4A4A;
@@ -120,7 +135,34 @@ a {
 
 /* TODO: Replace with image later */
 #header {
+  color:#ccc;
   background-color: #484848;
+}
+#header .inside:after,
+.work-entry:after,
+#header:after {
+  clear:both;
+  content:'.';
+  display:block;
+  height:0;
+  overflow:hidden;
+  visibility:hidden;
+}
+#header a,
+#footerContacts a {
+  color:#fff;
+}
+#topContacts {
+  margin-bottom:20px;
+}
+
+.employee-title,
+.clear {
+  display:block;
+  clear:both;
+}
+.project-entry img {
+  clear:both;
 }
 
 .flex-box {
@@ -128,12 +170,10 @@ a {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -webkit-justify-content: space-around;
   justify-content: space-around;
   padding: 10px;
-}
-
-.center-content {
-  padding: 5%;
 }
 
 ul {
@@ -142,14 +182,14 @@ ul {
 
 
 .biopic {
-  float: left;
-  padding: 10px;
-  width: 200px;
   display: none;
+  float: left;
+  padding: 0 10px 10px 0;
+  width: 200px;
 }
 
 img {
-  padding: 10px;
+  padding: 0 10px 10px 0;
 }
 
 
@@ -174,9 +214,7 @@ span {
 }
 
 @media only screen and (max-width: 1024px) {
-  #letsConnect {
-    margin-top: 5%;
-  }
+  /**/
 }
 
 @media only screen and (max-width:900px) {
@@ -186,9 +224,6 @@ span {
 }
 
 @media only screen and (max-width: 750px) {
-  #letsConnect {
-    margin-top: 10%;
-  }
   .biopic {
     width: 150px;
   }
@@ -196,18 +231,15 @@ span {
     display: none;
   }
 }
+@media only screen and (max-width: 640px) {
+  .role {
+    display:block;
+  }
+}
 
 #map {
   display: block;
-  height: 100%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-#mapDiv {
   height: 400px;
-  width: 100%;
-  padding-bottom: 5%;
 }
 
 @media only screen and (min-width: 750px) {
