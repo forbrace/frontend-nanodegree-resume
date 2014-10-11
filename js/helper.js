@@ -169,14 +169,15 @@ function initializeMap() {
     var marker = new google.maps.Marker({
       map: map,
       position: placeData.geometry.location,
-      title: name
+      title: name,
+      animation: google.maps.Animation.DROP
     });
     
     // infoWindows are the little helper windows that open when you click
     // or hover over a pin on a map. They usually contain more information
     // about a location.
     var infoWindow = new google.maps.InfoWindow({
-      content: '<div class="gmapName">'+name+'</div>'
+      content: '<div class="gmapName"><b>'+name+'</b></div>'
     });
     
     // hmmmm, I wonder what this is about...

@@ -71,13 +71,6 @@ var education = {
   }]
 };
 
-function emptyObject(obj) {
-  for (var prop in obj) {
-    return false;
-  }
-  return true;
-}
-
 // bio display
 function bioDisplay() {
   
@@ -261,17 +254,25 @@ function educationDisplay() {
   }
 }
 
+// check if obj is empty iterating through obj props
+function emptyObject(obj) {
+  for (var prop in obj) {
+    return false;
+  }
+  return true;
+}
+
+// assign functions to obj methods
 education.display = educationDisplay;
-education.display();
-
 bio.display = bioDisplay;
-bio.display();
-
 work.display = workDisplay;
-work.display();
-
 projects.display = projectsDisplay;
+
+// invoke methods
+bio.display();
+work.display();
+education.display();
 projects.display();
 
-
+// and map
 $('#mapDiv .inside').append(googleMap);
